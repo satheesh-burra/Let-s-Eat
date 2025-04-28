@@ -1,16 +1,27 @@
 
-
-
-
-
 // import React, { useState } from "react";
 // import PhoneInput from "react-phone-number-input";
 // import "react-phone-number-input/style.css";
 
 // const restaurants = [
-//   { id: 1, name: "Downtown Lounge", location: "Main Street 12" },
-//   { id: 2, name: "Lakeview Banquets", location: "Lakeside Road 22" },
-//   { id: 3, name: "Sunset Pavilion", location: "Sunset Boulevard 5" },
+//   {
+//     id:"1",
+//     city: "Hyderabad",
+//     address: "Plot 12, Madhapur, Hyderabad, TS",
+    
+//   },
+//   {
+//     id:"2",
+//     city: "Bengaluru",
+//     address: "88 MG Road, Bengaluru, KA",
+    
+//   },
+//   {
+//     id:"3",
+//     city: "Chennai",
+//     address: "45 North Usman Rd, T. Nagar, Chennai, TN",
+    
+//   }
 // ];
 
 // const eventImages = {
@@ -33,6 +44,7 @@
 //   const [showBookingForm, setShowBookingForm] = useState(false);
 //   const [selectedEvent, setSelectedEvent] = useState("");
 //   const [formData, setFormData] = useState({ date: "", time: "", phone: "" });
+//   const [formErrors, setFormErrors] = useState({});
 
 //   const corporateEvents = ["Team Building", "Annual Party", "Award Ceremony"];
 //   const festiveEvents = ["Christmas Party", "New Year Bash", "Diwali Night"];
@@ -44,16 +56,45 @@
 //     setShowBookingForm(true);
 //   };
 
+//   const validateForm = () => {
+//     const errors = {};
+//     const today = new Date();
+//     const selectedDate = new Date(formData.date);
+
+//     // Validate date (must not be in the past)
+//     if (selectedDate < today) {
+//       errors.date = "Event date cannot be in the past";
+//     }
+
+//     // Validate time (cannot be in the past relative to current time)
+//     if (selectedDate.toDateString() === today.toDateString()) {
+//       const selectedTime = new Date(`${today.toDateString()} ${formData.time}`);
+//       if (selectedTime < new Date()) {
+//         errors.time = "Event time cannot be in the past";
+//       }
+//     }
+
+//     // Validate phone
+//     if (!formData.phone) {
+//       errors.phone = "Phone number is required";
+//     }
+
+//     setFormErrors(errors);
+//     return Object.keys(errors).length === 0;
+//   };
+
 //   const handleBookingSubmit = () => {
-//     alert(
-//       `✅ "${selectedEvent}" booked for ${formData.date} at ${formData.time}. Confirmation sent to ${formData.phone}`
-//     );
-//     setShowBookingForm(false);
-//     setFormData({ date: "", time: "", phone: "" });
+//     if (validateForm()) {
+//       alert(
+//         `✅ "${selectedEvent}" booked for ${formData.date} at ${formData.time}. Confirmation sent to ${formData.phone}`
+//       );
+//       setShowBookingForm(false);
+//       setFormData({ date: "", time: "", phone: "" });
+//     }
 //   };
 
 //   return (
-//     <div className="p-6 mx-auto  mt-20 bg-gradient-to-r from-pink-200 via-white to-red-300">
+//     <div className="p-6 mx-auto mt-20  min-h-79 bg-gradient-to-r from-pink-200 via-white to-red-300">
 //       <h1 className="text-3xl font-bold text-red-600 mb-6 text-center">🎉 Book Your Special Event!</h1>
 
 //       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -69,8 +110,8 @@
 //               )
 //             }
 //           >
-//             <h2 className="text-xl font-semibold text-red-700">{restaurant.name}</h2>
-//             <p className="text-gray-700">{restaurant.location}</p>
+//             <h2 className="text-xl font-semibold text-red-700">{restaurant.city}</h2>
+//             <p className="text-gray-700">{restaurant.address}</p>
 //           </div>
 //         ))}
 //       </div>
@@ -90,44 +131,76 @@
 //             <h3 className="text-xl font-semibold mb-4 text-red-600">
 //               Booking: {selectedEvent}
 //             </h3>
-//             <input
-//               type="date"
-//               className="w-full mb-3 p-2 border rounded"
-//               value={formData.date}
-//               onChange={(e) =>
-//                 setFormData({ ...formData, date: e.target.value })
-//               }
-//             />
-//             <input
-//               type="time"
-//               className="w-full mb-3 p-2 border rounded"
-//               value={formData.time}
-//               onChange={(e) =>
-//                 setFormData({ ...formData, time: e.target.value })
-//               }
-//             />
-//             <PhoneInput
-//               international
-//               defaultCountry="US"
-//               value={formData.phone}
-//               onChange={(phone) => setFormData({ ...formData, phone })}
-//               className="w-full mb-3 p-2 border rounded"
-//               placeholder="Enter phone number"
-//             />
-//             <div className="flex justify-end space-x-2">
-//               <button
-//                 className="bg-gray-300 px-4 py-2 rounded"
-//                 onClick={() => setShowBookingForm(false)}
-//               >
-//                 Cancel
-//               </button>
-//               <button
-//                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-//                 onClick={handleBookingSubmit}
-//               >
-//                 Confirm
-//               </button>
-//             </div>
+//             <form>
+//               <table className="w-full">
+//                 <tbody>
+//                   <tr>
+//                     <td className="pr-4 text-right">Date:</td>
+//                     <td>
+//                       <input
+//                         type="date"
+//                         className="w-full mb-3 p-2 border rounded"
+//                         value={formData.date}
+//                         onChange={(e) =>
+//                           setFormData({ ...formData, date: e.target.value })
+//                         }
+//                       />
+//                       {formErrors.date && (
+//                         <p className="text-red-500 text-sm">{formErrors.date}</p>
+//                       )}
+//                     </td>
+//                   </tr>
+//                   <tr>
+//                     <td className="pr-4 text-right">Time:</td>
+//                     <td>
+//                       <input
+//                         type="time"
+//                         className="w-full mb-3 p-2 border rounded"
+//                         value={formData.time}
+//                         onChange={(e) =>
+//                           setFormData({ ...formData, time: e.target.value })
+//                         }
+//                       />
+//                       {formErrors.time && (
+//                         <p className="text-red-500 text-sm">{formErrors.time}</p>
+//                       )}
+//                     </td>
+//                   </tr>
+//                   <tr>
+//                     <td className="pr-4 text-right">Phone:</td>
+//                     <td>
+//                       <PhoneInput
+//                         international
+//                         defaultCountry="US"
+//                         value={formData.phone}
+//                         onChange={(phone) => setFormData({ ...formData, phone })}
+//                         className="w-full mb-3 p-2 border rounded"
+//                         placeholder="Enter phone number"
+//                       />
+//                       {formErrors.phone && (
+//                         <p className="text-red-500 text-sm">{formErrors.phone}</p>
+//                       )}
+//                     </td>
+//                   </tr>
+//                 </tbody>
+//               </table>
+//               <div className="flex justify-end space-x-2">
+//                 <button
+//                   type="button"
+//                   className="bg-gray-300 px-4 py-2 rounded"
+//                   onClick={() => setShowBookingForm(false)}
+//                 >
+//                   Cancel
+//                 </button>
+//                 <button
+//                   type="button"
+//                   className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+//                   onClick={handleBookingSubmit}
+//                 >
+//                   Confirm
+//                 </button>
+//               </div>
+//             </form>
 //           </div>
 //         </div>
 //       )}
@@ -182,30 +255,29 @@
 
 
 
-
 import React, { useState } from "react";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 
 const restaurants = [
-  { id: 1, name: "Downtown Lounge", location: "Main Street 12" },
-  { id: 2, name: "Lakeview Banquets", location: "Lakeside Road 22" },
-  { id: 3, name: "Sunset Pavilion", location: "Sunset Boulevard 5" },
+  { id: "1", city: "Hyderabad", address: "Plot 12, Madhapur, Hyderabad, TS" },
+  { id: "2", city: "Bengaluru", address: "88 MG Road, Bengaluru, KA" },
+  { id: "3", city: "Chennai", address: "45 North Usman Rd, T. Nagar, Chennai, TN" },
 ];
 
 const eventImages = {
-  "Team Building": "https://img.freepik.com/free-photo/group-friends-eating-restaurant_23-2148006609.jpg?t=st=1745813122~exp=1745816722~hmac=e648c317f9967bd39f6ac56e1690ecdc39336181636c3ec508ac82983dc471df&w=996",
-  "Annual Party": "https://img.freepik.com/free-photo/high-angle-people-sitting-table_23-2149882902.jpg?t=st=1745813195~exp=1745816795~hmac=54f5d5f67f6432ab50ba440dd30a577535b225f5126c2404c460a05ef51f8786&w=740",
+  "Team Building": "https://img.freepik.com/free-photo/group-friends-eating-restaurant_23-2148006609.jpg",
+  "Annual Party": "https://img.freepik.com/free-photo/high-angle-people-sitting-table_23-2149882902.jpg",
   "Award Ceremony": "https://thebarbequetimes.com/wp-content/uploads/2024/07/unnamed-10-e1721478677143-768x440.png",
-  "Christmas Party": "https://img.freepik.com/free-photo/top-view-christmas-dinner_23-2147716351.jpg?t=st=1745814204~exp=1745817804~hmac=2c66e7529c8948739ce7e787b094f2aa16e616aa5a81c2aace027c0c90a42955&w=996",
-  "New Year Bash": "https://img.freepik.com/free-photo/bright-sparklers-cheerful-friends_329181-5713.jpg?ga=GA1.1.607992959.1707129454&semt=ais_hybrid&w=740",
-  "Diwali Night": "https://img.freepik.com/premium-photo/beautiful-diwali-lighting-diya-clay-oil-lamp-selective-focus_466689-47324.jpg?ga=GA1.1.607992959.1707129454&semt=ais_hybrid&w=740",
-  "Valentine's Dinner": "https://img.freepik.com/premium-photo/directly-shot-red-rose-table_1048944-30565119.jpg?w=900",
-  "Family Reunion Dinner": "https://img.freepik.com/premium-photo/indian-couple-hosting-cultural-exchange-dinner-their-hospitality-creating-atmosphere-warmth-friendship-where-guests-feel-welcomed-appreciated_748982-24951.jpg?w=996",
+  "Christmas Party": "https://img.freepik.com/free-photo/top-view-christmas-dinner_23-2147716351.jpg",
+  "New Year Bash": "https://img.freepik.com/free-photo/bright-sparklers-cheerful-friends_329181-5713.jpg",
+  "Diwali Night": "https://img.freepik.com/premium-photo/beautiful-diwali-lighting-diya-clay-oil-lamp-selective-focus_466689-47324.jpg",
+  "Valentine's Dinner": "https://img.freepik.com/premium-photo/directly-shot-red-rose-table_1048944-30565119.jpg",
+  "Family Reunion Dinner": "https://img.freepik.com/premium-photo/indian-couple-hosting-cultural-exchange-dinner_748982-24951.jpg",
   "Friends Meetup": "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf",
-  "Custom Corporate Event": "https://img.freepik.com/premium-photo/group-people-are-walking-down-red-carpet-outside-building_1187092-79969.jpg?w=740",
-  "Custom Festive Celebration": "https://img.freepik.com/premium-photo/multigenerational-indian-family-eating-sweets-while-celebrating-festival-occasion-dressed-traditional-wear-sitting-sofa-couch_466689-33600.jpg?w=996",
-  "Custom Special Dinner": "https://img.freepik.com/free-photo/fried-chicken-with-mushrooms-tomato_140725-3752.jpg?ga=GA1.1.607992959.1707129454&semt=ais_hybrid&w=740",
+  "Custom Corporate Event": "https://img.freepik.com/premium-photo/group-people-walking-down-red-carpet_1187092-79969.jpg",
+  "Custom Festive Celebration": "https://img.freepik.com/premium-photo/multigenerational-indian-family-eating-sweets_466689-33600.jpg",
+  "Custom Special Dinner": "https://img.freepik.com/free-photo/fried-chicken-with-mushrooms-tomato_140725-3752.jpg",
 };
 
 const EventsMain = () => {
@@ -230,20 +302,21 @@ const EventsMain = () => {
     const today = new Date();
     const selectedDate = new Date(formData.date);
 
-    // Validate date (must not be in the past)
-    if (selectedDate < today) {
+    if (!formData.date) {
+      errors.date = "Please select a date.";
+    } else if (selectedDate.setHours(0, 0, 0, 0) < today.setHours(0, 0, 0, 0)) {
       errors.date = "Event date cannot be in the past";
     }
 
-    // Validate time (cannot be in the past relative to current time)
-    if (selectedDate.toDateString() === today.toDateString()) {
-      const selectedTime = new Date(`${today.toDateString()} ${formData.time}`);
-      if (selectedTime < new Date()) {
-        errors.time = "Event time cannot be in the past";
-      }
+    if (!formData.time) {
+      errors.time = "Please select a time.";
+    } else if (
+      selectedDate.toDateString() === today.toDateString() &&
+      new Date(`${formData.date}T${formData.time}`) < new Date()
+    ) {
+      errors.time = "Event time cannot be in the past";
     }
 
-    // Validate phone
     if (!formData.phone) {
       errors.phone = "Phone number is required";
     }
@@ -263,7 +336,7 @@ const EventsMain = () => {
   };
 
   return (
-    <div className="p-6 mx-auto mt-20 bg-gradient-to-r from-pink-200 via-white to-red-300">
+    <div className="p-6 mx-auto mt-20 bg-gradient-to-r from-pink-200 via-white to-red-300 min-h-screen">
       <h1 className="text-3xl font-bold text-red-600 mb-6 text-center">🎉 Book Your Special Event!</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -279,8 +352,8 @@ const EventsMain = () => {
               )
             }
           >
-            <h2 className="text-xl font-semibold text-red-700">{restaurant.name}</h2>
-            <p className="text-gray-700">{restaurant.location}</p>
+            <h2 className="text-xl font-semibold text-red-700">{restaurant.city}</h2>
+            <p className="text-gray-700">{restaurant.address}</p>
           </div>
         ))}
       </div>
@@ -295,65 +368,54 @@ const EventsMain = () => {
       )}
 
       {showBookingForm && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-2xl w-96">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 px-4">
+          <div className="bg-white w-full max-w-md p-6 sm:p-8 rounded-2xl">
             <h3 className="text-xl font-semibold mb-4 text-red-600">
               Booking: {selectedEvent}
             </h3>
-            <form>
-              <table className="w-full">
-                <tbody>
-                  <tr>
-                    <td className="pr-4 text-right">Date:</td>
-                    <td>
-                      <input
-                        type="date"
-                        className="w-full mb-3 p-2 border rounded"
-                        value={formData.date}
-                        onChange={(e) =>
-                          setFormData({ ...formData, date: e.target.value })
-                        }
-                      />
-                      {formErrors.date && (
-                        <p className="text-red-500 text-sm">{formErrors.date}</p>
-                      )}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="pr-4 text-right">Time:</td>
-                    <td>
-                      <input
-                        type="time"
-                        className="w-full mb-3 p-2 border rounded"
-                        value={formData.time}
-                        onChange={(e) =>
-                          setFormData({ ...formData, time: e.target.value })
-                        }
-                      />
-                      {formErrors.time && (
-                        <p className="text-red-500 text-sm">{formErrors.time}</p>
-                      )}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="pr-4 text-right">Phone:</td>
-                    <td>
-                      <PhoneInput
-                        international
-                        defaultCountry="US"
-                        value={formData.phone}
-                        onChange={(phone) => setFormData({ ...formData, phone })}
-                        className="w-full mb-3 p-2 border rounded"
-                        placeholder="Enter phone number"
-                      />
-                      {formErrors.phone && (
-                        <p className="text-red-500 text-sm">{formErrors.phone}</p>
-                      )}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <div className="flex justify-end space-x-2">
+            <form className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Date:</label>
+                <input
+                  type="date"
+                  className="w-full mt-1 p-2 border rounded"
+                  value={formData.date}
+                  onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                />
+                {formErrors.date && (
+                  <p className="text-red-500 text-sm">{formErrors.date}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Time:</label>
+                <input
+                  type="time"
+                  className="w-full mt-1 p-2 border rounded"
+                  value={formData.time}
+                  onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                />
+                {formErrors.time && (
+                  <p className="text-red-500 text-sm">{formErrors.time}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Phone:</label>
+                <PhoneInput
+                  international
+                  defaultCountry="US"
+                  value={formData.phone}
+                  onChange={(phone) => setFormData({ ...formData, phone })}
+                  className="w-full mt-1 p-2 border rounded"
+                  placeholder="Enter phone number"
+                />
+                {formErrors.phone && (
+                  <p className="text-red-500 text-sm">{formErrors.phone}</p>
+                )}
+              </div>
+
+              <div className="flex justify-end space-x-2 pt-4">
                 <button
                   type="button"
                   className="bg-gray-300 px-4 py-2 rounded"
@@ -420,7 +482,3 @@ const EventCard = ({ name, onBook }) => {
 };
 
 export default EventsMain;
-
-
-
-

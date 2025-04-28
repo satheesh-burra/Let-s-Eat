@@ -3,22 +3,22 @@ import { FaMapMarkerAlt, FaExternalLinkAlt } from "react-icons/fa";
 
 const branches = [
   {
-    city: "New York",
-    address: "123 Foodie Lane, Manhattan, NY",
-    image: "https://idsb.tmgrup.com.tr/ly/uploads/images/2024/04/09/thumbs/800x531/323101.jpg", 
-    mapLink: "https://www.google.com/maps?q=123+Foodie+Lane,+Manhattan,+NY"
+    city: "Hyderabad",
+    address: "Plot 12, Madhapur, Hyderabad, TS",
+    image: "https://media.istockphoto.com/id/171225043/photo/outdoor-restaurant-terrace.jpg?s=612x612&w=0&k=20&c=wdjiziD2SLVHBcIHAt_xnodI_JyNphTqXlUI4UKkn5Q=",
+    mapLink: "https://www.google.com/maps?q=Plot+12,+Madhapur,+Hyderabad"
   },
   {
-    city: "Los Angeles",
-    address: "456 Sunset Blvd, LA, CA",
-    image: "https://media.tacdn.com/media/attractions-splice-spp-674x446/07/71/39/f1.jpg", 
-    mapLink: "https://www.google.com/maps?q=456+Sunset+Blvd,+Los+Angeles,+CA"
+    city: "Bengaluru",
+    address: "88 MG Road, Bengaluru, KA",
+    image: "https://i.pinimg.com/564x/c8/cc/de/c8ccde84591941cac2e6c33b135f9712.jpg",
+    mapLink: "https://www.google.com/maps?q=88+MG+Road,+Bengaluru"
   },
   {
-    city: "Chicago",
-    address: "789 Windy St, Chicago, IL",
-    image: "https://cdn.choosechicago.com/uploads/2024/09/iStock-1457709628-scaled-e1726779974760-1800x789.jpg",
-    mapLink: "https://www.google.com/maps?q=789+Windy+St,+Chicago,+IL"
+    city: "Chennai",
+    address: "45 North Usman Rd, T. Nagar, Chennai, TN",
+    image: "https://media.istockphoto.com/id/975054980/photo/shipping-container-restaurant-with-red-color-3d-rendering.jpg?s=612x612&w=0&k=20&c=x0dUpuo7jvMA3tT9-TND1czyrRQe12Vc9j-yspbC9WE=",
+    mapLink: "https://www.google.com/maps?q=45+North+Usman+Rd,+T.+Nagar,+Chennai"
   }
 ];
 
@@ -32,11 +32,17 @@ const About = () => {
           Established in 2025, Let's Eat began with a simple mission: to bring people together over delicious meals. 
           Today, with multiple branches nationwide, we continue to serve authentic, high-quality food with love.
         </p>
-      
-
-
-
       </div>
+      <button
+  onClick={() => {
+    setSelectedItem(item);
+    setQuantity(1);
+  }}
+  className="relative overflow-hidden px-6 py-2 rounded-full border border-red-600 text-red-600 font-semibold transition-all duration-300 group"
+>
+  <span className="absolute inset-0 bg-white transition-all duration-300 transform scale-y-0 origin-bottom group-hover:scale-y-100 z-0"></span>
+  <span className="relative z-10 text-white group-hover:text-black">Order Now</span>
+</button>
 
       {/* 📌 Branches Section */}
       <div className="max-w-6xl mx-auto p-8">
@@ -68,4 +74,3 @@ const About = () => {
 };
 
 export default About;
-

@@ -21,11 +21,12 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center p-6 bg-gradient-to-r from-white via-pink-300 to-red-300">
+    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center p-6 bg-gradient-to-r from-white via-pink-100 to-red-100 rounded-2xl">
       {/* Left Image */}
       <div className="w-full md:w-1/2 p-4">
         <img
-          src="https://cdn.pixabay.com/photo/2016/07/17/18/23/contact-us-1524408_640.png"
+          // src="https://cdn.pixabay.com/photo/2016/07/17/18/23/contact-us-1524408_640.png"
+           src="https://img.freepik.com/premium-photo/people-fast-food-cooking-concept-chef-kebab-shop-writing-order-calling-smartphone_380164-190064.jpg?w=996"
           alt="Restaurant"
           className="rounded-2xl shadow-lg w-full h-auto object-cover"
         />

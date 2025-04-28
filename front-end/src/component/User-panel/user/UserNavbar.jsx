@@ -27,10 +27,11 @@ const UserNavbar = () => {
           <li>
             <Link to="/book-table" className="hover:text-gray-200">Book Table</Link>
           </li>
-          <li>
+          </ul>
+          <div>
             <button onClick={handleLogout} className="hover:text-gray-200">Logout</button>
-          </li>
-        </ul>
+          </div>
+        
       </div>
     </nav>
   );
