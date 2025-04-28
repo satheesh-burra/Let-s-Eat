@@ -59,7 +59,7 @@ const RestaurantNavbar = () => {
   };
 
   return (
-    <nav className="bg-red-600 text-white px-6 py-4 shadow-md h-30">
+    <nav className="bg-red-600 text-white px-6 py-4 shadow-md h-20">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
       <h1 className="text-2xl font-bold whitespace-nowrap">Restaurant Panel</h1>
         {/* Left Section: Logo + Links */}
